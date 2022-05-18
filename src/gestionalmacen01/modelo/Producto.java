@@ -2,12 +2,14 @@
 /**
  * Write a description of class Producto here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @gonzsanz
+ * @version 18/05/2022
  */
 package gestionalmacen01.modelo;
 
-public class Producto {
+import java.io.Serializable;
+
+public class Producto implements Serializable {
     // instance variables - replace the example below with your own
     int codigo; // Código del producto, se utiliza para buscar
     static int autocodigo = 0; // Auto incrementa el codigo del producto para evitar repetidos

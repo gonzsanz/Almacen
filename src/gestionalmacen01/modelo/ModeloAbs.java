@@ -3,10 +3,12 @@ package gestionalmacen01.modelo;
 /**
  * Abstract class ModeloAbs - Clase de acceso a Modelo de DATOS
  * 
- * @author: Alberto Lopez
- *          Date: 24/04/2018
+ * @gonzsanz
+ * @version: 18-05-2022
  */
 public interface ModeloAbs {
+
+    static final String fichero = "productos.objeto";
 
     public boolean insertarProducto(Producto p);
 
@@ -19,5 +21,9 @@ public interface ModeloAbs {
     void listarProductosStockMin();
 
     boolean modificarProducto(Producto nuevo);
+
+    void cargarProductos();
+
+    void salvarProductos();
 
 }

@@ -2,11 +2,16 @@
 /**
  * Write a description of class ModeloHaspMap here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @gonzsanz
+ * @version 18-05-22
  */
 package gestionalmacen01.modelo;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +21,7 @@ public class ModeloHashMap implements ModeloAbs {
 
     public ModeloHashMap() {
         lista = new HashMap<Integer, Producto>();
+        cargarProductos();
     }
 
     public boolean insertarProducto(Producto p) {
@@ -63,8 +69,40 @@ public class ModeloHashMap implements ModeloAbs {
 
         if (lista.get(nuevo.getCodigo()) != null) {
             lista.replace(nuevo.getCodigo(), nuevo);
+            salvarProductos();
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void cargarProductos() {
+        try (FileInputStream fin = new FileInputStream(ModeloAbs.fichero);
+                ObjectInputStream fpo = new ObjectInputStream(fin)) {
+
+            while (true) {
+
+                Producto p = (Producto) fpo.readObject();
+                lista.put(p.getCodigo(), p);
+
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+
+        }
+    }
+
+    @Override
+    public void salvarProductos() {
+        try (FileOutputStream fos = new FileOutputStream(ModeloAbs.fichero);
+                ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+
+            for (int i = 0; i < Producto.autocodigo; i++) {
+                oos.writeObject(lista.get(i));
+            }
+
+        } catch (IOException e) {
+
+        }
     }
 }
